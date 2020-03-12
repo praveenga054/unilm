@@ -33,6 +33,102 @@ import xml.etree.ElementTree as ET
 import logging
 from transformers import glue_output_modes as output_modes
 from transformers import glue_processors as processors
+import random
+import numpy as np
+import torch
+import re
+import os
+import random
+import numpy as np
+import torch
+import re
+import os
+from tqdm import tqdm
+from lxml import html
+import copy
+import json
+from transformers import DataProcessor, is_tf_available
+import xml.etree.ElementTree as ET
+import logging
+from transformers import glue_output_modes as output_modes
+from transformers import glue_processors as processors
+import random
+import numpy as np
+import torch
+import re
+import os
+import random
+import numpy as np
+import torch
+import re
+import os
+from tqdm import tqdm
+from lxml import html
+import copy
+import json
+from transformers import DataProcessor, is_tf_available
+import xml.etree.ElementTree as ET
+import logging
+from transformers import glue_output_modes as output_modes
+from transformers import glue_processors as processors
+import random
+import numpy as np
+import torch
+import re
+import os
+import random
+import numpy as np
+import torch
+import re
+import os
+from tqdm import tqdm
+from lxml import html
+import copy
+import json
+from transformers import DataProcessor, is_tf_available
+import xml.etree.ElementTree as ET
+import logging
+from transformers import glue_output_modes as output_modes
+from transformers import glue_processors as processors
+import random
+import numpy as np
+import torch
+import re
+import os
+import random
+import numpy as np
+import torch
+import re
+import os
+from tqdm import tqdm
+from lxml import html
+import copy
+import json
+from transformers import DataProcessor, is_tf_available
+import xml.etree.ElementTree as ET
+import logging
+from transformers import glue_output_modes as output_modes
+from transformers import glue_processors as processors
+import random
+import numpy as np
+import torch
+import re
+import os
+import random
+import numpy as np
+import torch
+import re
+import os
+from tqdm import tqdm
+from lxml import html
+import copy
+import json
+from transformers import DataProcessor, is_tf_available
+import xml.etree.ElementTree as ET
+import logging
+from transformers import glue_output_modes as output_modes
+from transformers import glue_processors as processors
+
 
 logger = logging.getLogger(__name__)
 
@@ -88,7 +184,113 @@ class DocExample(object):
     def to_json_string(self):
         """Serializes this instance to a JSON string."""
         return json.dumps(self.to_dict(), indent=2, sort_keys=True) + "\n"
+class DocExample(object):
+    """
+    A single training/test example for simple sequence classification.
 
+    Args:
+        guid: Unique id for the example.
+        text_a: string. The untokenized text of the first sequence. For single
+        sequence tasks, only this sequence must be specified.
+        text_b: (Optional) string. The untokenized text of the second sequence.
+        Only must be specified for sequence pair tasks.
+        label: (Optional) string. The label of the example. This should be
+        specified for train and dev examples, but not for test examples.
+    """
+
+    def __init__(self, guid, text_a, text_b=None, bbox=None, label=None):
+        self.guid = guid
+        self.text_a = text_a
+        self.text_b = text_b
+        self.bbox = bbox
+        self.label = label
+
+    def __repr__(self):
+        return str(self.to_json_string())
+    def __repr__(self):
+        return str(self.to_json_string())
+
+    def to_dict(self):
+        """Serializes this instance to a Python dictionary."""
+        output = copy.deepcopy(self.__dict__)
+        return output
+
+    def to_json_string(self):
+        """Serializes this instance to a JSON string."""
+        return json.dumps(self.to_dict(), indent=2, sort_keys=True) + "\n"
+ 
+class DocExample(object):
+    """
+    A single training/test example for simple sequence classification.
+
+    Args:
+        guid: Unique id for the example.
+        text_a: string. The untokenized text of the first sequence. For single
+        sequence tasks, only this sequence must be specified.
+        text_b: (Optional) string. The untokenized text of the second sequence.
+        Only must be specified for sequence pair tasks.
+        label: (Optional) string. The label of the example. This should be
+        specified for train and dev examples, but not for test examples.
+    """
+
+    def __init__(self, guid, text_a, text_b=None, bbox=None, label=None):
+        self.guid = guid
+        self.text_a = text_a
+        self.text_b = text_b
+        self.bbox = bbox
+        self.label = label
+
+    def __repr__(self):
+        return str(self.to_json_string())
+    def __repr__(self):
+        return str(self.to_json_string())
+
+    def to_dict(self):
+        """Serializes this instance to a Python dictionary."""
+        output = copy.deepcopy(self.__dict__)
+        return output
+
+    def to_json_string(self):
+        """Serializes this instance to a JSON string."""
+        return json.dumps(self.to_dict(), indent=2, sort_keys=True) + "\n"
+    
+    
+    
+    
+class DocExample(object):
+    """
+    A single training/test example for simple sequence classification.
+
+    Args:
+        guid: Unique id for the example.
+        text_a: string. The untokenized text of the first sequence. For single
+        sequence tasks, only this sequence must be specified.
+        text_b: (Optional) string. The untokenized text of the second sequence.
+        Only must be specified for sequence pair tasks.
+        label: (Optional) string. The label of the example. This should be
+        specified for train and dev examples, but not for test examples.
+    """
+
+    def __init__(self, guid, text_a, text_b=None, bbox=None, label=None):
+        self.guid = guid
+        self.text_a = text_a
+        self.text_b = text_b
+        self.bbox = bbox
+        self.label = label
+
+    def __repr__(self):
+        return str(self.to_json_string())
+    def __repr__(self):
+        return str(self.to_json_string())
+
+    def to_dict(self):
+        """Serializes this instance to a Python dictionary."""
+        output = copy.deepcopy(self.__dict__)
+        return output
+
+    def to_json_string(self):
+        """Serializes this instance to a JSON string."""
+        return json.dumps(self.to_dict(), indent=2, sort_keys=True) + "\n"
 
 class CdipProcessor(DataProcessor):
     """Processor for the CDIP data set."""
@@ -382,7 +584,19 @@ def set_seed(args):
     torch.manual_seed(args.seed)
     if args.n_gpu > 0:
         torch.cuda.manual_seed_all(args.seed)
+def set_seed(args):
+    random.seed(args.seed)
+    np.random.seed(args.seed)
+    torch.manual_seed(args.seed)
+    if args.n_gpu > 0:
+        torch.cuda.manual_seed_all(args.seed)
         
+def set_seed(args):
+    random.seed(args.seed)
+    np.random.seed(args.seed)
+    torch.manual_seed(args.seed)
+    if args.n_gpu > 0:
+        torch.cuda.manual_seed_all(args.seed)
         
         
 def set_seed(args):
@@ -390,4 +604,105 @@ def set_seed(args):
     np.random.seed(args.seed)
     torch.manual_seed(args.seed)
     if args.n_gpu > 0:
-        torch.cuda.manual_seed_all(args.seed)        
+        torch.cuda.manual_seed_all(args.seed)
+        
+def set_seed(args):
+    random.seed(args.seed)
+    np.random.seed(args.seed)
+    torch.manual_seed(args.seed)
+    if args.n_gpu > 0:
+        torch.cuda.manual_seed_all(args.seed) 
+        
+        
+def set_seed(args):
+    random.seed(args.seed)
+    np.random.seed(args.seed)
+    torch.manual_seed(args.seed)
+    if args.n_gpu > 0:
+        torch.cuda.manual_seed_all(args.seed)
+        
+def set_seed(args):
+    random.seed(args.seed)
+    np.random.seed(args.seed)
+    torch.manual_seed(args.seed)
+    if args.n_gpu > 0:
+        torch.cuda.manual_seed_all(args.seed)
+        
+class DocExample(object):
+    """
+    A single training/test example for simple sequence classification.
+
+    Args:
+        guid: Unique id for the example.
+        text_a: string. The untokenized text of the first sequence. For single
+        sequence tasks, only this sequence must be specified.
+        text_b: (Optional) string. The untokenized text of the second sequence.
+        Only must be specified for sequence pair tasks.
+        label: (Optional) string. The label of the example. This should be
+        specified for train and dev examples, but not for test examples.
+    """
+
+    def __init__(self, guid, text_a, text_b=None, bbox=None, label=None):
+        self.guid = guid
+        self.text_a = text_a
+        self.text_b = text_b
+        self.bbox = bbox
+        self.label = label
+
+    def __repr__(self):
+        return str(self.to_json_string())
+    def __repr__(self):
+        return str(self.to_json_string())
+
+    def to_dict(self):
+        """Serializes this instance to a Python dictionary."""
+        output = copy.deepcopy(self.__dict__)
+        return output
+
+    def to_json_string(self):
+        """Serializes this instance to a JSON string."""
+        return json.dumps(self.to_dict(), indent=2, sort_keys=True) + "\n"
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+class DocExample(object):
+    """
+    A single training/test example for simple sequence classification.
+
+    Args:
+        guid: Unique id for the example.
+        text_a: string. The untokenized text of the first sequence. For single
+        sequence tasks, only this sequence must be specified.
+        text_b: (Optional) string. The untokenized text of the second sequence.
+        Only must be specified for sequence pair tasks.
+        label: (Optional) string. The label of the example. This should be
+        specified for train and dev examples, but not for test examples.
+    """
+
+    def __init__(self, guid, text_a, text_b=None, bbox=None, label=None):
+        self.guid = guid
+        self.text_a = text_a
+        self.text_b = text_b
+        self.bbox = bbox
+        self.label = label
+
+    def __repr__(self):
+        return str(self.to_json_string())
+    def __repr__(self):
+        return str(self.to_json_string())
+
+    def to_dict(self):
+        """Serializes this instance to a Python dictionary."""
+        output = copy.deepcopy(self.__dict__)
+        return output
+
+    def to_json_string(self):
+        """Serializes this instance to a JSON string."""
+        return json.dumps(self.to_dict(), indent=2, sort_keys=True) + "\n"    
