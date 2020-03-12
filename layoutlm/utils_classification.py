@@ -19,6 +19,11 @@ import numpy as np
 import torch
 import re
 import os
+import random
+import numpy as np
+import torch
+import re
+import os
 from tqdm import tqdm
 from lxml import html
 import copy
@@ -70,6 +75,8 @@ class DocExample(object):
         self.bbox = bbox
         self.label = label
 
+    def __repr__(self):
+        return str(self.to_json_string())
     def __repr__(self):
         return str(self.to_json_string())
 
@@ -367,7 +374,7 @@ def compute_metrics(task_name, preds, labels):
         return {"acc": simple_accuracy(preds, labels)}
     else:
         raise KeyError(task_name)
-
+#raise KeyError(task_name)raise KeyError(task_name)raise KeyError(task_name)raise KeyError(task_name)raise KeyError(task_name)raise KeyError(task_name)raise KeyError(task_name)raise KeyError(task_name)raise KeyError(task_name)raise KeyError(task_name)
 
 def set_seed(args):
     random.seed(args.seed)
@@ -375,3 +382,12 @@ def set_seed(args):
     torch.manual_seed(args.seed)
     if args.n_gpu > 0:
         torch.cuda.manual_seed_all(args.seed)
+        
+        
+        
+def set_seed(args):
+    random.seed(args.seed)
+    np.random.seed(args.seed)
+    torch.manual_seed(args.seed)
+    if args.n_gpu > 0:
+        torch.cuda.manual_seed_all(args.seed)        
